@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en"> <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Sadman Sakib - Senior Genomics Scientist & Neuroscientist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Apply Inter font globally */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased; /* Smoother fonts on WebKit */
+            -moz-osx-font-smoothing: grayscale; /* Smoother fonts on Firefox */
+        }
+        /* Simple smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Subtle fade-in animation for sections (optional) */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-section {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0; /* Start hidden */
+        }
+        /* Custom accent color - easily changeable */
+        :root {
+            --accent-color: #0891b2; /* Example: Cyan-600 */
+            --accent-color-hover: #0e7490; /* Example: Cyan-700 */
+        }
+        .text-accent { color: var(--accent-color); }
+        .bg-accent { background-color: var(--accent-color); }
+        .hover\:bg-accent-hover:hover { background-color: var(--accent-color-hover); }
+        .border-accent { border-color: var(--accent-color); }
+        /* Tailwind sr-only class definition (if not using full Tailwind build) */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style>
+    <script>
+        // Tailwind custom theme configuration (optional, for cleaner class names)
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                accent: 'var(--accent-color)',
+                'accent-hover': 'var(--accent-color-hover)',
+                'light-bg': '#f8fafc', // Example: Cool Gray 50
+                'dark-text': '#1f2937', // Example: Cool Gray 800
+                'medium-text': '#4b5563', // Example: Cool Gray 600
+                'light-text': '#6b7280', // Example: Cool Gray 500
+              }
+            }
+          }
+        }
+
+        // Simple Intersection Observer for fade-in effect
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in-section');
+                        // Optional: Stop observing once animated
+                        // observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 }); // Trigger when 10% of the section is visible
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</head>
+<body class="bg-light-bg text-dark-text">
+
+    <header class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-accent">
+                <a href="/">Dr. Sadman Sakib</a>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#home" class="text-medium-text hover:text-accent transition duration-300">Home</a>
+                <a href="#about" class="text-medium-text hover:text-accent transition duration-300">About</a>
+                <a href="#blog" class="text-medium-text hover:text-accent transition duration-300">Blog</a>
+                <a href="#contact" class="text-medium-text hover:text-accent transition duration-300">Contact</a>
+            </div>
+            <div class="md:hidden">
+                 <button class="text-dark-text focus:outline-none" aria-label="Toggle menu">
+                    <i class="fas fa-bars fa-lg"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-16 md:py-24 space-y-24 md:space-y-32">
+
+        <section id="home" aria-labelledby="hero-heading" class="text-center min-h-[60vh] flex flex-col justify-center items-center">
+             <h1 id="hero-heading" class="text-4xl md:text-6xl font-bold mb-4 leading-tight text-dark-text">
+                Dr. Sadman Sakib <br class="hidden md:block"/>
+                <span class="text-accent">Genomics Scientist & Neuroscientist</span>
+            </h1>
+            <p class="text-lg md:text-xl text-medium-text mb-10 max-w-3xl">
+                Passionate about the intersection of science, technology, and collaboration. Leveraging cutting-edge genomics, neuroscience, and AI to bridge research gaps and address real-world challenges in life sciences. Based in Hamburg, Germany.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="#about" class="bg-accent hover:bg-accent-hover text-white font-medium py-3 px-8 rounded-lg transition duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1">
+                    Discover More
+                </a>
+                <a href="#blog" class="bg-white border border-gray-300 hover:bg-gray-100 text-medium-text font-medium py-3 px-8 rounded-lg transition duration-300 shadow-sm hover:shadow-md">
+                    Read My Blog
+                </a>
+            </div>
+        </section>
+
+        <section id="about" aria-labelledby="about-heading" class="py-16 md:py-24 bg-white rounded-xl shadow-lg p-8 md:p-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
+                <div class="md:col-span-1 text-center">
+                    <div class="w-48 h-48 md:w-64 md:h-64 mx-auto rounded-full mb-6 overflow-hidden shadow-lg border-4 border-accent/50">
+                         <img
+                            src="images/sadman-profile.png" alt="Dr. Sadman Sakib - Professional Headshot"
+                            class="w-full h-full object-cover"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-6xl text-accent\' aria-hidden=\'true\'><i class=\'fas fa-user\'></i></span>';"
+                            >
+                         </div>
+                     <h3 class="text-2xl font-semibold text-dark-text mb-2">Dr. Sadman Sakib</h3>
+                     <p class="text-accent font-medium">Senior Genomics Scientist | Neuroscientist</p>
+                </div>
+                <div class="md:col-span-2">
+                    <h2 id="about-heading" class="text-3xl md:text-4xl font-bold mb-6 text-dark-text">About Me</h2>
+                    <div class="text-medium-text text-lg space-y-4 leading-relaxed">
+                         <p>
+                            Growing up in Bangladesh fostered a deep appreciation for community and problem-solving, shaping my mission to bridge advanced genomics and accessible healthcare. I believe transformative innovation thrives at the intersection of science, technology, and collaboration.
+                        </p>
+                        <p>
+                            My academic path includes a BSc. (Honours) in Biochemistry & Molecular Biology from the University of Dhaka (Bangladesh), followed by an MSc. and a Dr. rer. nat. (PhD, Summa Cum Laude) in Neuroscience via the IMPRS program at the University of Göttingen (Germany) & University of Bordeaux (France), originally supported by an Erasmus Mundus Masters scholarship. My doctoral research focused on epigenomic and transcriptomic analysis of developing, adult and aging brain: mechanisms of brain folding, neuronal function and finding novel therapy for dementia.
+                        </p>
+                        <p>
+                            Currently, as a Research Associate at Evotec in Hamburg, I manage custom genomics solutions (NGS, Molecular Biology, Computational Biology) for pharmaceutical partners, aiming to accelerate drug discovery and tackle unmet medical needs.
+                        </p>
+                         <p>
+                            Beyond the lab, I'm committed to community building and mentorship. I serve as a Bangla Language Trainer at Bornomala Bangla School here in Hamburg and as a Business Development Lead & Career Expert at Study and Career Coach Germany (SCCG), guiding students and professionals in life sciences. My goal is to leverage genomics, computational biology, and AI to catalyze innovations for accessible healthcare.
+                         </p>
+                         <div class="mt-8 pt-6 border-t border-gray-200">
+                            <h4 class="text-lg font-semibold mb-3 text-dark-text">Let's Connect:</h4>
+                            <a href="https://www.linkedin.com/in/msadman-sakib/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center bg-blue-600 text-white hover:bg-blue-700 font-medium py-2 px-5 rounded-lg transition duration-300 shadow hover:shadow-md transform hover:-translate-y-0.5 mb-2 mr-2">
+                                <i class="fab fa-linkedin mr-2" aria-hidden="true"></i> LinkedIn
+                            </a>
+                            <a href="https://github.com/msadman-sakib" target="_blank" rel="noopener noreferrer" class="inline-flex items-center bg-gray-700 text-white hover:bg-gray-800 font-medium py-2 px-5 rounded-lg transition duration-300 shadow hover:shadow-md transform hover:-translate-y-0.5 mb-2 mr-2">
+                                <i class="fab fa-github mr-2" aria-hidden="true"></i> GitHub
+                            </a>
+                            <a href="https://scholar.google.de/citations?hl=en&user=4Kk9eZkAAAAJ&view_op=list_works&sortby=pubdate" target="_blank" rel="noopener noreferrer" class="inline-flex items-center bg-green-600 text-white hover:bg-green-700 font-medium py-2 px-5 rounded-lg transition duration-300 shadow hover:shadow-md transform hover:-translate-y-0.5 mb-2 mr-2">
+                                <i class="fas fa-graduation-cap mr-2" aria-hidden="true"></i> Google Scholar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="blog" aria-labelledby="blog-heading" class="py-16 md:py-24">
+            <div class="text-center mb-12 md:mb-16">
+                <h2 id="blog-heading" class="text-3xl md:text-4xl font-bold mb-4 text-dark-text">From the Blog</h2>
+                <p class="text-lg text-medium-text max-w-2xl mx-auto">Sharing insights on genomics, neuroscience, AI in life sciences, career development, and community building.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+
+                <article aria-labelledby="post-title-1" class="bg-white rounded-xl shadow-lg overflow-hidden group transform transition duration-500 hover:scale-105 hover:shadow-2xl flex flex-col">
+                    <div class="h-48 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-gray-400">
+                        <i class="fas fa-dna fa-3x" aria-hidden="true"></i> </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <p class="text-sm text-accent font-medium mb-2">[Genomics]</p> <h3 id="post-title-1" class="text-xl font-semibold mb-3 text-dark-text group-hover:text-accent transition duration-300">The Future of NGS</h3> <p class="text-medium-text mb-4 text-base flex-grow">Exploring the latest advancements in Next-Generation Sequencing technology and its impact...</p> <div class="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center text-sm text-light-text">
+                            <time datetime="2025-04-15">April 15, 2025</time>
+                            <a href="blog/post1.html" class="text-accent font-medium hover:underline">Read More <span class="sr-only"> about The Future of NGS</span>&rarr;</a> </div>
+                    </div>
+                </article>
+
+                <article aria-labelledby="post-title-2" class="bg-white rounded-xl shadow-lg overflow-hidden group transform transition duration-500 hover:scale-105 hover:shadow-2xl flex flex-col">
+                    <div class="h-48 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-gray-400">
+                        <i class="fas fa-brain fa-3x" aria-hidden="true"></i> </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <p class="text-sm text-accent font-medium mb-2">[Neuroscience]</p> <h3 id="post-title-2" class="text-xl font-semibold mb-3 text-dark-text group-hover:text-accent transition duration-300">AI in Brain Research</h3> <p class="text-medium-text mb-4 text-base flex-grow">How Artificial Intelligence is revolutionizing our understanding of the brain and neurological disorders.</p> <div class="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center text-sm text-light-text">
+                             <time datetime="2025-04-10">April 10, 2025</time>
+                            <a href="blog/post2.html" class="text-accent font-medium hover:underline">Read More <span class="sr-only"> about AI in Brain Research</span>&rarr;</a> </div>
+                    </div>
+                </article>
+
+                <div role="complementary" aria-label="Coming Soon" class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl shadow-inner border border-gray-200 flex flex-col items-center justify-center p-6 text-center text-medium-text min-h-[300px]">
+                     <i class="fas fa-pen-nib fa-3x text-gray-400 mb-4" aria-hidden="true"></i>
+                    <h3 class="text-lg font-semibold mb-2 text-dark-text">More Insights Coming</h3>
+                    <p>Stay tuned for new articles and explorations.</p>
+                </div>
+                </div>
+             <div class="text-center mt-16">
+                <a href="blog/archive.html" class="bg-white border border-gray-300 hover:bg-gray-100 text-medium-text font-medium py-3 px-8 rounded-lg transition duration-300 shadow-sm hover:shadow-md">
+                    View All Posts
+                </a>
+                </div>
+        </section>
+
+        <section id="contact" aria-labelledby="contact-heading" class="py-16 md:py-24 bg-gradient-to-r from-cyan-600 to-blue-700 text-white rounded-xl shadow-xl p-8 md:p-12 text-center">
+            <h2 id="contact-heading" class="text-3xl md:text-4xl font-bold mb-4">Let's Collaborate</h2>
+            <p class="text-lg md:text-xl text-cyan-100 mb-10 max-w-2xl mx-auto">
+                Interested in discussing genomics, neuroscience, AI applications, career paths, or potential collaborations? Feel free to reach out!
+            </p>
+            <a href="https://www.linkedin.com/in/msadman-sakib/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center bg-white text-accent hover:bg-gray-100 font-bold py-3 px-8 rounded-lg transition duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1">
+                <i class="fab fa-linkedin mr-2" aria-hidden="true"></i> Get in Touch via LinkedIn
+            </a>
+             </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-gray-400 py-10 mt-16 md:mt-24">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-4">
+                 <a href="https://www.linkedin.com/in/msadman-sakib/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition duration-300 mx-3" aria-label="Sadman Sakib on LinkedIn"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+                 <a href="https://github.com/msadman-sakib" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition duration-300 mx-3" aria-label="Sadman Sakib on GitHub"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+                 <a href="https://scholar.google.de/citations?hl=en&user=4Kk9eZkAAAAJ&view_op=list_works&sortby=pubdate" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition duration-300 mx-3" aria-label="Sadman Sakib on Google Scholar"><i class="fas fa-graduation-cap fa-lg" aria-hidden="true"></i></a>
+            </div>
+            <p class="text-sm">&copy; <span id="currentYear"></span> Dr. Sadman Sakib. All rights reserved.</p>
+            <p class="text-xs mt-2 opacity-75">Designed with passion & code. Hosted on GitHub Pages.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Add mobile menu toggle functionality here if needed
+        // Example:
+        // const menuButton = document.querySelector('button[aria-label="Toggle menu"]');
+        // const mobileMenu = document.querySelector('#mobile-menu-id'); // You'd need to add an ID to the mobile menu div/nav
+        // menuButton.addEventListener('click', () => {
+        //    const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+        //    menuButton.setAttribute('aria-expanded', !isExpanded);
+        //    mobileMenu.classList.toggle('hidden'); // Or your display class
+        // });
+    </script>
+
+</body>
+</html>
