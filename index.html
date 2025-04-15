@@ -83,26 +83,55 @@
             sections.forEach(section => {
                 observer.observe(section);
             });
+
+            // --- Mobile Menu Toggle ---
+            const menuButton = document.getElementById('menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (menuButton && mobileMenu) {
+                menuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden'); // Toggle visibility
+                    // Toggle ARIA attribute for accessibility
+                    const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+                    menuButton.setAttribute('aria-expanded', !isExpanded);
+                });
+            }
+            // --- End Mobile Menu Toggle ---
         });
     </script>
 </head>
 <body class="bg-light-bg text-dark-text">
 
     <header class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 transition-all duration-300">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center relative">
             <div class="text-2xl font-bold text-accent">
                 <a href="/">Dr. Sadman Sakib</a>
             </div>
+
             <div class="hidden md:flex space-x-6">
                 <a href="#home" class="text-medium-text hover:text-accent transition duration-300">Home</a>
                 <a href="#about" class="text-medium-text hover:text-accent transition duration-300">About</a>
                 <a href="#blog" class="text-medium-text hover:text-accent transition duration-300">Blog</a>
                 <a href="#contact" class="text-medium-text hover:text-accent transition duration-300">Contact</a>
             </div>
+
             <div class="md:hidden">
-                 <button class="text-dark-text focus:outline-none" aria-label="Toggle menu">
+                 <button
+                    id="menu-button"
+                    class="text-dark-text focus:outline-none"
+                    aria-label="Toggle menu"
+                    aria-controls="mobile-menu"
+                    aria-expanded="false"
+                 >
                     <i class="fas fa-bars fa-lg"></i>
                 </button>
+            </div>
+
+             <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-100 z-40">
+                <a href="#home" class="block px-6 py-3 text-medium-text hover:bg-gray-100 hover:text-accent transition duration-300">Home</a>
+                <a href="#about" class="block px-6 py-3 text-medium-text hover:bg-gray-100 hover:text-accent transition duration-300">About</a>
+                <a href="#blog" class="block px-6 py-3 text-medium-text hover:bg-gray-100 hover:text-accent transition duration-300">Blog</a>
+                <a href="#contact" class="block px-6 py-3 text-medium-text hover:bg-gray-100 hover:text-accent transition duration-300">Contact</a>
             </div>
         </nav>
     </header>
@@ -245,15 +274,46 @@
         // Set current year in footer
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-        // Add mobile menu toggle functionality here if needed
-        // Example:
-        // const menuButton = document.querySelector('button[aria-label="Toggle menu"]');
-        // const mobileMenu = document.querySelector('#mobile-menu-id'); // You'd need to add an ID to the mobile menu div/nav
-        // menuButton.addEventListener('click', () => {
-        //    const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
-        //    menuButton.setAttribute('aria-expanded', !isExpanded);
-        //    mobileMenu.classList.toggle('hidden'); // Or your display class
-        // });
+        // --- Mobile Menu Toggle ---
+        const menuButton = document.getElementById('menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (menuButton && mobileMenu) {
+            menuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden'); // Toggle visibility
+                // Toggle ARIA attribute for accessibility
+                const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+                menuButton.setAttribute('aria-expanded', !isExpanded);
+            });
+
+            // Optional: Close menu when a link is clicked (good for single-page apps)
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    menuButton.setAttribute('aria-expanded', 'false');
+                });
+            });
+        }
+        // --- End Mobile Menu Toggle ---
+
+        // --- Intersection Observer for fade-in effect ---
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-section');
+                    // Optional: Stop observing once animated
+                    // observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 }); // Trigger when 10% of the section is visible
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+         // --- End Intersection Observer ---
+
     </script>
 
 </body>
