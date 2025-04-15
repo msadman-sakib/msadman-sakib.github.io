@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en"> <head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dr. Sadman Sakib - Senior Genomics Scientist & Neuroscientist</title>
@@ -9,95 +10,76 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* Apply Inter font globally */
         body {
             font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased; /* Smoother fonts on WebKit */
-            -moz-osx-font-smoothing: grayscale; /* Smoother fonts on Firefox */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        /* Simple smooth scroll */
         html {
-            scroll-behavior: smooth;
+            scroll-behavior: smooth; /* Ensures smooth scrolling for anchor links */
+            scroll-padding-top: 80px; /* Adjust scroll position to account for sticky header height */
         }
-        /* Subtle fade-in animation for sections (optional) */
+        /* Fade-in animation */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .fade-in-section {
             animation: fadeIn 0.8s ease-out forwards;
-            opacity: 0; /* Start hidden */
+            opacity: 0;
         }
-        /* Custom accent color - easily changeable */
+        /* Custom accent color */
         :root {
-            --accent-color: #0891b2; /* Example: Cyan-600 */
-            --accent-color-hover: #0e7490; /* Example: Cyan-700 */
+            --accent-color: #0891b2; /* Cyan-600 */
+            --accent-color-hover: #0e7490; /* Cyan-700 */
         }
         .text-accent { color: var(--accent-color); }
         .bg-accent { background-color: var(--accent-color); }
         .hover\:bg-accent-hover:hover { background-color: var(--accent-color-hover); }
         .border-accent { border-color: var(--accent-color); }
-        /* Tailwind sr-only class definition (if not using full Tailwind build) */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
+        /* Active link style */
+        .nav-link-active {
+            color: var(--accent-color) !important; /* Use !important to override potential specificity issues */
+            font-weight: 600; /* Make active link bolder */
         }
+        /* Screen reader only */
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
+        }
+        /* Mobile menu transition styles */
+        #mobile-menu {
+            transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        #mobile-menu.menu-closed {
+             max-height: 0;
+             opacity: 0;
+             overflow: hidden;
+        }
+         #mobile-menu.menu-open {
+             max-height: 500px; /* Adjust if menu gets taller */
+             opacity: 1;
+             overflow: hidden; /* Prevents content overflow during transition */
+        }
+
     </style>
     <script>
-        // Tailwind custom theme configuration (optional, for cleaner class names)
+        // Tailwind custom config (optional)
         tailwind.config = {
           theme: {
             extend: {
               colors: {
                 accent: 'var(--accent-color)',
                 'accent-hover': 'var(--accent-color-hover)',
-                'light-bg': '#f8fafc', // Example: Cool Gray 50
-                'dark-text': '#1f2937', // Example: Cool Gray 800
-                'medium-text': '#4b5563', // Example: Cool Gray 600
-                'light-text': '#6b7280', // Example: Cool Gray 500
+                'light-bg': '#f8fafc', 'dark-text': '#1f2937',
+                'medium-text': '#4b5563', 'light-text': '#6b7280',
+              },
+              transitionProperty: {
+                'max-height': 'max-height' // Add max-height to transition properties
               }
             }
           }
         }
-
-        // Simple Intersection Observer for fade-in effect
-        document.addEventListener('DOMContentLoaded', () => {
-            const sections = document.querySelectorAll('section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('fade-in-section');
-                        // Optional: Stop observing once animated
-                        // observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 }); // Trigger when 10% of the section is visible
-
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-
-            // --- Mobile Menu Toggle ---
-            const menuButton = document.getElementById('menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-
-            if (menuButton && mobileMenu) {
-                menuButton.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden'); // Toggle visibility
-                    // Toggle ARIA attribute for accessibility
-                    const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
-                    menuButton.setAttribute('aria-expanded', !isExpanded);
-                });
-            }
-            // --- End Mobile Menu Toggle ---
-        });
     </script>
 </head>
 <body class="bg-light-bg text-dark-text">
@@ -108,17 +90,17 @@
                 <a href="/">Dr. Sadman Sakib</a>
             </div>
 
-            <div class="hidden md:flex space-x-6">
-                <a href="#home" class="text-medium-text hover:text-accent transition duration-300">Home</a>
-                <a href="#about" class="text-medium-text hover:text-accent transition duration-300">About</a>
-                <a href="#blog" class="text-medium-text hover:text-accent transition duration-300">Blog</a>
-                <a href="#contact" class="text-medium-text hover:text-accent transition duration-300">Contact</a>
+            <div id="desktop-nav" class="hidden md:flex space-x-6">
+                <a href="#home" data-section="home" class="nav-link text-medium-text hover:text-accent transition duration-300">Home</a>
+                <a href="#about" data-section="about" class="nav-link text-medium-text hover:text-accent transition duration-300">About</a>
+                <a href="#blog" data-section="blog" class="nav-link text-medium-text hover:text-accent transition duration-300">Blog</a>
+                <a href="#contact" data-section="contact" class="nav-link text-medium-text hover:text-accent transition duration-300">Contact</a>
             </div>
 
             <div class="md:hidden">
                  <button
                     id="menu-button"
-                    class="text-dark-text focus:outline-none"
+                    class="text-dark-text focus:outline-none p-2 -mr-2" /* Added padding for easier tapping */
                     aria-label="Toggle menu"
                     aria-controls="mobile-menu"
                     aria-expanded="false"
@@ -127,18 +109,18 @@
                 </button>
             </div>
 
-             <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-100 z-40">
-                <a href="#home" class="block px-6 py-3 text-medium-text hover:bg-gray-100 hover:text-accent transition duration-300">Home</a>
-                <a href="#about" class="block px-6 py-3 text-medium-text hover:bg-gray-100 hover:text-accent transition duration-300">About</a>
-                <a href="#blog" class="block px-6 py-3 text-medium-text hover:bg-gray-100 hover:text-accent transition duration-300">Blog</a>
-                <a href="#contact" class="block px-6 py-3 text-medium-text hover:bg-gray-100 hover:text-accent transition duration-300">Contact</a>
+             <div id="mobile-menu" class="menu-closed md:hidden absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-100 z-40">
+                <a href="#home" data-section="home" class="nav-link block px-6 py-3 text-medium-text hover:bg-gray-100 hover:text-accent transition duration-300">Home</a>
+                <a href="#about" data-section="about" class="nav-link block px-6 py-3 text-medium-text hover:bg-gray-100 hover:text-accent transition duration-300">About</a>
+                <a href="#blog" data-section="blog" class="nav-link block px-6 py-3 text-medium-text hover:bg-gray-100 hover:text-accent transition duration-300">Blog</a>
+                <a href="#contact" data-section="contact" class="nav-link block px-6 py-3 text-medium-text hover:bg-gray-100 hover:text-accent transition duration-300">Contact</a>
             </div>
         </nav>
     </header>
 
     <main class="container mx-auto px-6 py-16 md:py-24 space-y-24 md:space-y-32">
 
-        <section id="home" aria-labelledby="hero-heading" class="text-center min-h-[60vh] flex flex-col justify-center items-center">
+        <section id="home" aria-labelledby="hero-heading" class="text-center min-h-[60vh] flex flex-col justify-center items-center fade-in-section">
              <h1 id="hero-heading" class="text-4xl md:text-6xl font-bold mb-4 leading-tight text-dark-text">
                 Dr. Sadman Sakib <br class="hidden md:block"/>
                 <span class="text-accent">Genomics Scientist & Neuroscientist</span>
@@ -156,7 +138,7 @@
             </div>
         </section>
 
-        <section id="about" aria-labelledby="about-heading" class="py-16 md:py-24 bg-white rounded-xl shadow-lg p-8 md:p-12">
+        <section id="about" aria-labelledby="about-heading" class="py-16 md:py-24 bg-white rounded-xl shadow-lg p-8 md:p-12 fade-in-section">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
                 <div class="md:col-span-1 text-center">
                     <div class="w-48 h-48 md:w-64 md:h-64 mx-auto rounded-full mb-6 overflow-hidden shadow-lg border-4 border-accent/50">
@@ -165,9 +147,9 @@
                             class="w-full h-full object-cover"
                             onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-6xl text-accent\' aria-hidden=\'true\'><i class=\'fas fa-user\'></i></span>';"
                             >
-                         </div>
-                     <h3 class="text-2xl font-semibold text-dark-text mb-2">Dr. Sadman Sakib</h3>
-                     <p class="text-accent font-medium">Senior Genomics Scientist | Neuroscientist</p>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-dark-text mb-2">Dr. Sadman Sakib</h3>
+                    <p class="text-accent font-medium">Senior Genomics Scientist | Neuroscientist</p>
                 </div>
                 <div class="md:col-span-2">
                     <h2 id="about-heading" class="text-3xl md:text-4xl font-bold mb-6 text-dark-text">About Me</h2>
@@ -201,47 +183,36 @@
             </div>
         </section>
 
-        <section id="blog" aria-labelledby="blog-heading" class="py-16 md:py-24">
+        <section id="blog" aria-labelledby="blog-heading" class="py-16 md:py-24 fade-in-section">
             <div class="text-center mb-12 md:mb-16">
                 <h2 id="blog-heading" class="text-3xl md:text-4xl font-bold mb-4 text-dark-text">From the Blog</h2>
                 <p class="text-lg text-medium-text max-w-2xl mx-auto">Sharing insights on genomics, neuroscience, AI in life sciences, career development, and community building.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-
                 <article aria-labelledby="post-title-1" class="bg-white rounded-xl shadow-lg overflow-hidden group transform transition duration-500 hover:scale-105 hover:shadow-2xl flex flex-col">
-                    <div class="h-48 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-gray-400">
-                        <i class="fas fa-dna fa-3x" aria-hidden="true"></i> </div>
+                    <div class="h-48 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-gray-400"><i class="fas fa-dna fa-3x" aria-hidden="true"></i></div>
                     <div class="p-6 flex flex-col flex-grow">
-                        <p class="text-sm text-accent font-medium mb-2">[Genomics]</p> <h3 id="post-title-1" class="text-xl font-semibold mb-3 text-dark-text group-hover:text-accent transition duration-300">The Future of NGS</h3> <p class="text-medium-text mb-4 text-base flex-grow">Exploring the latest advancements in Next-Generation Sequencing technology and its impact...</p> <div class="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center text-sm text-light-text">
-                            <time datetime="2025-04-15">April 15, 2025</time>
-                            <a href="blog/post1.html" class="text-accent font-medium hover:underline">Read More <span class="sr-only"> about The Future of NGS</span>&rarr;</a> </div>
+                        <p class="text-sm text-accent font-medium mb-2">[Genomics]</p><h3 id="post-title-1" class="text-xl font-semibold mb-3 text-dark-text group-hover:text-accent transition duration-300">The Future of NGS</h3><p class="text-medium-text mb-4 text-base flex-grow">Exploring the latest advancements in Next-Generation Sequencing technology and its impact...</p><div class="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center text-sm text-light-text">
+                            <time datetime="2025-04-15">April 15, 2025</time><a href="blog/post1.html" class="text-accent font-medium hover:underline">Read More <span class="sr-only"> about The Future of NGS</span>&rarr;</a></div>
                     </div>
                 </article>
-
                 <article aria-labelledby="post-title-2" class="bg-white rounded-xl shadow-lg overflow-hidden group transform transition duration-500 hover:scale-105 hover:shadow-2xl flex flex-col">
-                    <div class="h-48 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-gray-400">
-                        <i class="fas fa-brain fa-3x" aria-hidden="true"></i> </div>
+                    <div class="h-48 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-gray-400"><i class="fas fa-brain fa-3x" aria-hidden="true"></i></div>
                     <div class="p-6 flex flex-col flex-grow">
-                        <p class="text-sm text-accent font-medium mb-2">[Neuroscience]</p> <h3 id="post-title-2" class="text-xl font-semibold mb-3 text-dark-text group-hover:text-accent transition duration-300">AI in Brain Research</h3> <p class="text-medium-text mb-4 text-base flex-grow">How Artificial Intelligence is revolutionizing our understanding of the brain and neurological disorders.</p> <div class="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center text-sm text-light-text">
-                             <time datetime="2025-04-10">April 10, 2025</time>
-                            <a href="blog/post2.html" class="text-accent font-medium hover:underline">Read More <span class="sr-only"> about AI in Brain Research</span>&rarr;</a> </div>
+                        <p class="text-sm text-accent font-medium mb-2">[Neuroscience]</p><h3 id="post-title-2" class="text-xl font-semibold mb-3 text-dark-text group-hover:text-accent transition duration-300">AI in Brain Research</h3><p class="text-medium-text mb-4 text-base flex-grow">How Artificial Intelligence is revolutionizing our understanding of the brain and neurological disorders.</p><div class="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center text-sm text-light-text">
+                             <time datetime="2025-04-10">April 10, 2025</time><a href="blog/post2.html" class="text-accent font-medium hover:underline">Read More <span class="sr-only"> about AI in Brain Research</span>&rarr;</a></div>
                     </div>
                 </article>
-
                 <div role="complementary" aria-label="Coming Soon" class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl shadow-inner border border-gray-200 flex flex-col items-center justify-center p-6 text-center text-medium-text min-h-[300px]">
-                     <i class="fas fa-pen-nib fa-3x text-gray-400 mb-4" aria-hidden="true"></i>
-                    <h3 class="text-lg font-semibold mb-2 text-dark-text">More Insights Coming</h3>
-                    <p>Stay tuned for new articles and explorations.</p>
+                     <i class="fas fa-pen-nib fa-3x text-gray-400 mb-4" aria-hidden="true"></i><h3 class="text-lg font-semibold mb-2 text-dark-text">More Insights Coming</h3><p>Stay tuned for new articles and explorations.</p>
                 </div>
-                </div>
-             <div class="text-center mt-16">
-                <a href="blog/archive.html" class="bg-white border border-gray-300 hover:bg-gray-100 text-medium-text font-medium py-3 px-8 rounded-lg transition duration-300 shadow-sm hover:shadow-md">
-                    View All Posts
-                </a>
-                </div>
+            </div>
+            <div class="text-center mt-16">
+                <a href="blog/archive.html" class="bg-white border border-gray-300 hover:bg-gray-100 text-medium-text font-medium py-3 px-8 rounded-lg transition duration-300 shadow-sm hover:shadow-md">View All Posts</a>
+            </div>
         </section>
 
-        <section id="contact" aria-labelledby="contact-heading" class="py-16 md:py-24 bg-gradient-to-r from-cyan-600 to-blue-700 text-white rounded-xl shadow-xl p-8 md:p-12 text-center">
+        <section id="contact" aria-labelledby="contact-heading" class="py-16 md:py-24 bg-gradient-to-r from-cyan-600 to-blue-700 text-white rounded-xl shadow-xl p-8 md:p-12 text-center fade-in-section">
             <h2 id="contact-heading" class="text-3xl md:text-4xl font-bold mb-4">Let's Collaborate</h2>
             <p class="text-lg md:text-xl text-cyan-100 mb-10 max-w-2xl mx-auto">
                 Interested in discussing genomics, neuroscience, AI applications, career paths, or potential collaborations? Feel free to reach out!
@@ -254,7 +225,7 @@
                     <i class="fas fa-envelope mr-2" aria-hidden="true"></i> Get in Touch via Email
                 </a>
             </div>
-             </section>
+        </section>
 
     </main>
 
@@ -271,49 +242,97 @@
     </footer>
 
     <script>
-        // Set current year in footer
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        document.addEventListener('DOMContentLoaded', () => {
 
-        // --- Mobile Menu Toggle ---
-        const menuButton = document.getElementById('menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
+            // --- Mobile Menu Toggle ---
+            const menuButton = document.getElementById('menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
 
-        if (menuButton && mobileMenu) {
-            menuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden'); // Toggle visibility
-                // Toggle ARIA attribute for accessibility
-                const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
-                menuButton.setAttribute('aria-expanded', !isExpanded);
-            });
-
-            // Optional: Close menu when a link is clicked (good for single-page apps)
-            const mobileLinks = mobileMenu.querySelectorAll('a');
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
-                    menuButton.setAttribute('aria-expanded', 'false');
+            if (menuButton && mobileMenu) {
+                menuButton.addEventListener('click', () => {
+                    const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+                    // Toggle ARIA attribute
+                    menuButton.setAttribute('aria-expanded', !isExpanded);
+                    // Toggle visibility classes for transition
+                    mobileMenu.classList.toggle('menu-open');
+                    mobileMenu.classList.toggle('menu-closed');
                 });
-            });
-        }
-        // --- End Mobile Menu Toggle ---
 
-        // --- Intersection Observer for fade-in effect ---
-        const sections = document.querySelectorAll('section');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in-section');
-                    // Optional: Stop observing once animated
-                    // observer.unobserve(entry.target);
+                // Close menu when a link inside it is clicked
+                const mobileLinks = mobileMenu.querySelectorAll('a');
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.remove('menu-open');
+                        mobileMenu.classList.add('menu-closed');
+                        menuButton.setAttribute('aria-expanded', 'false');
+                    });
+                });
+            }
+            // --- End Mobile Menu Toggle ---
+
+
+            // --- Intersection Observer for Section Fade-in ---
+            const sections = document.querySelectorAll('section'); // Select all sections
+            const fadeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    // Add fade-in class when section enters viewport
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in-section');
+                        // Optional: Stop observing once animated to save resources
+                        // fadeObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 }); // Trigger when 10% is visible
+
+            sections.forEach(section => {
+                fadeObserver.observe(section);
+            });
+            // --- End Intersection Observer ---
+
+
+            // --- Active Navigation Link Highlighting ---
+            const navLinks = document.querySelectorAll('.nav-link'); // Get all nav links (desktop and mobile)
+            const sectionsForNav = document.querySelectorAll('main section[id]'); // Get sections in main with IDs
+
+            const activateNavLink = () => {
+                let currentSectionId = '';
+                // Find which section is currently most visible
+                sectionsForNav.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    // Adjust threshold: trigger slightly before the exact top for better UX
+                    // Use scrollY (page scroll) + header offset (e.g. 100px)
+                    if (pageYOffset >= sectionTop - sectionHeight / 3) { // Check if scroll position is past 1/3 of the section
+                         currentSectionId = section.getAttribute('id');
+                    }
+                });
+
+                 // Special case for reaching the bottom of the page
+                if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 2) { // Check if near bottom
+                    const lastSection = sectionsForNav[sectionsForNav.length - 1];
+                    if (lastSection) {
+                        currentSectionId = lastSection.getAttribute('id');
+                    }
                 }
-            });
-        }, { threshold: 0.1 }); // Trigger when 10% of the section is visible
 
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-         // --- End Intersection Observer ---
 
+                // Update active class on links
+                navLinks.forEach(link => {
+                    link.classList.remove('nav-link-active'); // Remove from all links first
+                    // Check if the link's data-section attribute matches the current section ID
+                    if (link.getAttribute('data-section') === currentSectionId) {
+                        link.classList.add('nav-link-active'); // Add to the matching link
+                    }
+                });
+            };
+
+            // Add scroll listener to update active link
+            window.addEventListener('scroll', activateNavLink);
+            // Call once on load in case the page loads scrolled down
+            activateNavLink();
+            // --- End Active Navigation Link Highlighting ---
+
+        }); // End DOMContentLoaded
     </script>
 
 </body>
